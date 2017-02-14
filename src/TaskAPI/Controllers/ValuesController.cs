@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TaskAPI;
 
 namespace TaskAPI.Controllers
 {
@@ -11,23 +9,53 @@ namespace TaskAPI.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetTasks()
         {
-            return new string[] { "value1", "value2" };
+            // Return List with tasks.
+            return Ok(TasksDataStore.Current.TasksList);
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id}")] //brackets are used when working with params
+        public IActionResult GetTask(int id)
         {
-            return "value";
+            // we return a JsonResult where the id matches the id from tasklist.
+            var task = TasksDataStore.Current.TasksList.FirstOrDefault(t => t.TaskId == id);
+
+            // Return not found if the task is not found.
+            if (task == null)
+            {
+                return NotFound();
+            }
+            // If task is found return ok, with the task.
+            return Ok(task);
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        //[HttpPost]
+        //public IActionResult CreateTask(int taskId, [FromBody]TasksCreation newTask)
+        //{
+        //    if (newTask == null)
+        //    {
+        //        BadRequest();
+        //    }
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        BadRequest(ModelState);
+        //    }
+
+        //    // we return a JsonResult where the id matches the id from tasklist.
+        //    var task = TasksDataStore.Current.TasksList.FirstOrDefault(t => t.TaskId == taskId);
+
+        //    // Return not found if the task is not found.
+        //    if (task == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    // If task is found return ok, with the task.
+        //    return Ok(taskId);
+        //}
 
         // PUT api/values/5
         [HttpPut("{id}")]
