@@ -9,7 +9,7 @@ namespace TaskAPI.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IActionResult GetTasks()
+        public IActionResult GetAllTasks()
         {
             // Return List with tasks.
             return Ok(TasksDataStore.Current.TasksList);

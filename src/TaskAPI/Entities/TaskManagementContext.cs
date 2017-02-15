@@ -8,14 +8,14 @@ namespace TaskAPI.Entities
         public TaskManagementContext(DbContextOptions<TaskManagementContext> options) 
             :base(options)
         {
-            
+            Database.Migrate();
         }
 
         public DbSet<Task> Tasks { get; set; }
 
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        //public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
     }
 }
   
