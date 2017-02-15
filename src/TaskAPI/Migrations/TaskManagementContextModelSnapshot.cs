@@ -16,34 +16,16 @@ namespace TaskAPI.Migrations
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TaskAPI.Entities.Assignment", b =>
-                {
-                    b.Property<int>("TaskId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("TaskId1");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("TaskId");
-
-                    b.HasIndex("TaskId1");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Assignments");
-                });
-
             modelBuilder.Entity("TaskAPI.Entities.Task", b =>
                 {
                     b.Property<int>("TaskId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("BeginDateTime")
+                    b.Property<DateTime>("BeginDateTime")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("DeadlineDateTime")
+                    b.Property<DateTime>("DeadlineDateTime")
                         .HasMaxLength(50);
 
                     b.Property<string>("Requirements")
@@ -58,36 +40,7 @@ namespace TaskAPI.Migrations
 
                     b.ToTable("Tasks");
                 });
-
-            modelBuilder.Entity("TaskAPI.Entities.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("TaskAPI.Entities.Assignment", b =>
-                {
-                    b.HasOne("TaskAPI.Entities.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId1");
-
-                    b.HasOne("TaskAPI.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+           
         }
     }
 }

@@ -29,15 +29,14 @@ namespace TaskAPI.Migrations
                 {
                     TaskId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TaskId1 = table.Column<int>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Assignments", x => x.TaskId);
+                    table.PrimaryKey("PK_Assignments", x => new { x.TaskId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_Assignments_Tasks_TaskId1",
-                        column: x => x.TaskId1,
+                        name: "FK_Assignments_Tasks_TaskId",
+                        column: x => x.TaskId,
                         principalTable: "Tasks",
                         principalColumn: "TaskId",
                         onDelete: ReferentialAction.Restrict);
@@ -50,9 +49,9 @@ namespace TaskAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Assignments_TaskId1",
+                name: "IX_Assignments_TaskId",
                 table: "Assignments",
-                column: "TaskId1");
+                column: "TaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignments_UserId",
