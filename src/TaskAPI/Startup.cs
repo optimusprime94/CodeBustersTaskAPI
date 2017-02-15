@@ -50,7 +50,7 @@ namespace TaskAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, TaskManagementContext taskManagementContext) // Added TM context
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -58,6 +58,8 @@ namespace TaskAPI
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseApplicationInsightsExceptionTelemetry();
+
+            taskManagementContext.EnsureSeedDataForContext(); //Added to add seed to database
 
             app.UseMvc();
         }

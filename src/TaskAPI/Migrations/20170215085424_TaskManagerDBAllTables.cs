@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TaskAPI.Migrations
 {
-    public partial class TaskManagerDBAllTables : Migration
+    public partial class TaskManagerDbAllTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

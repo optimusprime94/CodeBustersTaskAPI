@@ -9,7 +9,7 @@ namespace TaskAPI.Migrations
 {
     [DbContext(typeof(TaskManagementContext))]
     [Migration("20170215085424_TaskManagerDBAllTables")]
-    partial class TaskManagerDBAllTables
+    partial class TaskManagerDbAllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
