@@ -62,6 +62,17 @@ namespace TaskAPI
                     LastName = "Carlsson",
                 }
             };
+            var assignmentlist = new List<Assignment>()
+            {
+                new Assignment
+                {
+                  //  TaskId
+                 // UserId
+                   
+                }
+
+
+            };
 
             context.Tasks.AddRange(tasklist); // tracks the entities
             context.Users.AddRange(userlist);
