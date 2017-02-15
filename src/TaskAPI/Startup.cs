@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TaskAPI.Entities;
+using TaskAPI.Services;
 
 namespace TaskAPI
 {
@@ -47,6 +48,9 @@ namespace TaskAPI
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=TaskManagerDB;Trusted_Connection=True;";
             services.AddDbContext<TaskManagementContext>(options => options.UseSqlServer(connection));
+
+
+            services.AddScoped<ITaskManagementRepository, TaskManagementRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -60,6 +64,8 @@ namespace TaskAPI
             app.UseApplicationInsightsExceptionTelemetry();
 
             taskManagementContext.EnsureSeedDataForContext(); //Added to add seed to database
+
+
 
             app.UseMvc();
         }

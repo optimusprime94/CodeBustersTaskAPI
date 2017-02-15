@@ -9,11 +9,13 @@ namespace TaskAPI
     {
         public static void EnsureSeedDataForContext(this TaskManagementContext context)
         {
+            //If the tasks are already added => return
             if (context.Tasks.Any())
             {
                 return;
             }
 
+            //Otherwise we create the seed and add it to database.
             var tasklist = new List<Task>()
             {
                 new Task

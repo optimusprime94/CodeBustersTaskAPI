@@ -1,18 +1,29 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TaskAPI;
+using TaskAPI.Entities;
+using TaskAPI.Services;
 
 namespace TaskAPI.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private ITaskManagementRepository _taskManagementRepository;
         // GET api/values
+        public ValuesController(ITaskManagementRepository taskManagementRepository)
+        {
+            _taskManagementRepository = taskManagementRepository;
+        }
+
         [HttpGet]
         public IActionResult GetAllTasks()
         {
-            // Return List with tasks.
-            return Ok(TasksDataStore.Current.TasksList);
+            // Return List with tasks data, that was acuired with the taskManagementRepository.
+            var alltasks = _taskManagementRepository.GetTasks();
+            return Ok(alltasks);
+
         }
 
         // GET api/values/5
