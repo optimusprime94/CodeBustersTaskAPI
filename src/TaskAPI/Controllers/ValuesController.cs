@@ -18,12 +18,21 @@ namespace TaskAPI.Controllers
             _taskManagementRepository = taskManagementRepository;
         }
 
-        [HttpGet]
+        [HttpGet("getalltasks")]
         public IActionResult GetAllTasks()
         {
             // Return List with tasks data, that was acuired with the taskManagementRepository.
-            var alltasks = _taskManagementRepository.GetTasks();
+            var alltasks = _taskManagementRepository.GetAllTasks();
             return Ok(alltasks);
+
+        }
+
+        [HttpGet("getallusers")]
+        public IActionResult GetAllUser()
+        {
+            //Returns a list with all users, that was acuired with the taskManagementRepository.
+            var allUsers = _taskManagementRepository.GetAllUsers();
+            return Ok(allUsers);
 
         }
 
@@ -43,31 +52,6 @@ namespace TaskAPI.Controllers
             return Ok(task);
         }
 
-        // POST api/values
-        //[HttpPost]
-        //public IActionResult CreateTask(int taskId, [FromBody]TasksCreation newTask)
-        //{
-        //    if (newTask == null)
-        //    {
-        //        BadRequest();
-        //    }
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        BadRequest(ModelState);
-        //    }
-
-        //    // we return a JsonResult where the id matches the id from tasklist.
-        //    var task = TasksDataStore.Current.TasksList.FirstOrDefault(t => t.TaskId == taskId);
-
-        //    // Return not found if the task is not found.
-        //    if (task == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    // If task is found return ok, with the task.
-        //    return Ok(taskId);
-        //}
 
         // PUT api/values/5
         [HttpPost("createnewassignment")]

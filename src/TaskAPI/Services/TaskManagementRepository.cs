@@ -17,11 +17,17 @@ namespace TaskAPI.Services
         {
             _context = context;
         }
-        IEnumerable<Entities.Task> ITaskManagementRepository.GetTasks()
+        IEnumerable<Entities.Task> ITaskManagementRepository.GetAllTasks()
         {
             // return a task list that is ordered after task id.
             return _context.Tasks.OrderBy(o => o.TaskId).ToList();
         }
+        IEnumerable<Entities.User> ITaskManagementRepository.GetAllUsers()
+        {
+            // return a task list that is ordered after task id.
+            return _context.Users.OrderBy(u => u.UserId).ToList();
+        }
+
         IEnumerable<Entities.Assignment> ITaskManagementRepository.GetAllAssignments()
         {
             // return an assignment list that is ordered after task id.
