@@ -10,6 +10,8 @@ namespace TaskAPI.Services
     public interface ITaskManagementRepository
     {
         IEnumerable<Task> GetTasks();
-        IEnumerable<Assignment> GetAssignment();
+        IEnumerable<Assignment> GetAllAssignments();
+        void CreateAssignment(Assignment assignment);
+        Entities.Assignment GetAssignment(Assignment assignment);
     }
 }

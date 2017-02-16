@@ -22,10 +22,27 @@ namespace TaskAPI.Services
             // return a task list that is ordered after task id.
             return _context.Tasks.OrderBy(o => o.TaskId).ToList();
         }
-        IEnumerable<Entities.Assignment> ITaskManagementRepository.GetAssignment()
+        IEnumerable<Entities.Assignment> ITaskManagementRepository.GetAllAssignments()
         {
-            // return a task list that is ordered after task id.
+            // return an assignment list that is ordered after task id.
             return _context.Assignments.OrderBy(a => a.TaskId).ToList();
+        }
+
+        Entities.Assignment ITaskManagementRepository.GetAssignment(Assignment assignment)
+        {
+            // Return the found assignment
+            return _context.Assignments.Find(assignment.TaskId, assignment.UserId);
+        }
+
+        void ITaskManagementRepository.CreateAssignment(Assignment assignment)
+        {
+            //Assignment assignment = new Assignment
+            //{
+            //    TaskId = taskId,
+            //    UserId = userId
+            //};
+            _context.Add(assignment);
+            _context.SaveChanges();
         }
     }
 }

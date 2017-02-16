@@ -10,7 +10,7 @@ namespace TaskAPI
         public static void EnsureSeedDataForContext(this TaskManagementContext context)
         {
             //If the tasks are already added => return
-            if (context.Tasks.Any())
+            if (context.Tasks.Any() && context.Assignments.Any())
             {
                 return;
             }

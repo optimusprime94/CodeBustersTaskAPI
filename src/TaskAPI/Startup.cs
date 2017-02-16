@@ -46,6 +46,7 @@ namespace TaskAPI
             services.AddMvc().AddMvcOptions(o => o.OutputFormatters.Add(
                 new XmlDataContractSerializerOutputFormatter()));
 
+            // Connecting to database
             var connection = @"Server=(localdb)\mssqllocaldb;Database=TaskManagerDB;Trusted_Connection=True;";
             services.AddDbContext<TaskManagementContext>(options => options.UseSqlServer(connection));
 

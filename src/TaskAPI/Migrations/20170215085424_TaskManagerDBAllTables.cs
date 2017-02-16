@@ -27,8 +27,9 @@ namespace TaskAPI.Migrations
                 name: "Assignments",
                 columns: table => new
                 {
-                    TaskId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TaskId = table.Column<int>(nullable: false),
+                        //Removed this to be able to edit assignments, don't know where it came from.
+                       // .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -39,7 +40,7 @@ namespace TaskAPI.Migrations
                         column: x => x.TaskId,
                         principalTable: "Tasks",
                         principalColumn: "TaskId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Assignments_Users_UserId",
                         column: x => x.UserId,

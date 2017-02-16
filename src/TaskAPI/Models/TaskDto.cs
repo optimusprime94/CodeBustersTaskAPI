@@ -1,6 +1,6 @@
 ﻿namespace TaskAPI.Models
 {
-    public class Tasks
+    public class TaskDto
     {
         public int TaskId { get; set; }
 

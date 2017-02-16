@@ -4,7 +4,6 @@ namespace TaskAPI.Entities
 {
     public sealed class TaskManagementContext : DbContext
     {
-        public static string ConnectionString { get; } = @"Server=(localdb)\mssqllocaldb;Database=TaskManagerDB;Trusted_Connection=True;";
 
         public TaskManagementContext(DbContextOptions<TaskManagementContext> options) 
             :base(options)
@@ -17,6 +16,13 @@ namespace TaskAPI.Entities
         public DbSet<User> Users { get; set; }
 
         public DbSet<Assignment> Assignments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Define composite keys with fluent API
+            modelBuilder.Entity<Assignment>()
+                .HasKey(a => new { a.TaskId, a.UserId });
+        }
     }
 }
   

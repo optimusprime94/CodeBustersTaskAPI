@@ -9,21 +9,21 @@ namespace TaskAPI
     public class TasksDataStore
     {
         public static TasksDataStore Current { get; } = new TasksDataStore();
-        public List<Tasks> TasksList { get; set; }
+        public List<TaskDto> TasksList { get; set; }
 
 
         public TasksDataStore()
         {
-            TasksList = new List<Tasks>()
+            TasksList = new List<TaskDto>()
            {
-               new Tasks {
+               new TaskDto {
                    TaskId = 1,
                    BeginDateTime = "22-04-17",
                    DeadlineDateTime = "27-05-17",
                    Requirements = "etwrtet",
                    Title = "Application"
                },
-               new Tasks {
+               new TaskDto {
                    TaskId = 2,
                    BeginDateTime = "22-04-17",
                    DeadlineDateTime = "24-06-17",

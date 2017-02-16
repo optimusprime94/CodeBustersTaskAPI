@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskAPI;
 using TaskAPI.Entities;
+using TaskAPI.Models;
 using TaskAPI.Services;
 
 namespace TaskAPI.Controllers
@@ -69,9 +70,28 @@ namespace TaskAPI.Controllers
         //}
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPost("createnewassignment")]
+        public IActionResult CreateNewAssignment([FromBody] AssignmentDto assignmentDto)
         {
+            // We are able to access this action, now we should check if the parameters is not null.
+            if (assignmentDto == null)
+            {
+                return BadRequest();
+            }
+
+            Assignment assignment = new Assignment
+            {
+                TaskId = assignmentDto.TaskId,
+                UserId = assignmentDto.UserId
+            };
+            // We also need to check if assignment already exists!
+            if (_taskManagementRepository.GetAssignment(assignment) != null)
+                return BadRequest();
+
+            // else
+
+            _taskManagementRepository.CreateAssignment(assignment);
+            return Ok(200);
         }
 
         // DELETE api/values/5
