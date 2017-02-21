@@ -32,7 +32,7 @@ namespace TaskAPI.Controllers
         public IActionResult Get(int id)
         {
             // we return a IActonResult where the id matches the id from tasklist.
-            var task = TasksDataStore.Current.TasksList.FirstOrDefault(t => t.TaskId == id);
+            var task = _taskManagementRepository.GetAllTasks().FirstOrDefault(t => t.TaskId == id);
             // if the task is not found.
             if (task == null)
             {

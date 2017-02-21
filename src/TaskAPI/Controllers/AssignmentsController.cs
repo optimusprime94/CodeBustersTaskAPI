@@ -46,7 +46,11 @@ namespace TaskAPI.Controllers
             {
                 return BadRequest();
             }
-
+            var task = _taskManagementRepository.GetAllTasks().FirstOrDefault(t => t.TaskId == assignmentDto.TaskId);
+            var user = _taskManagementRepository.GetAllUsers().FirstOrDefault(t => t.UserId == assignmentDto.UserId);
+            if((user == null) || (task == null)) {
+                return BadRequest();
+            }
             Assignment assignment = new Assignment
             {
                 TaskId = assignmentDto.TaskId,
@@ -54,10 +58,10 @@ namespace TaskAPI.Controllers
             };
             // We also need to check if assignment already exists!
             if (_taskManagementRepository.GetAssignment(assignment) != null)
+            {
                 return BadRequest();
-
+            }
             // else successfully create
-
             _taskManagementRepository.CreateAssignment(assignment);
             return Ok(200);
         }
