@@ -28,13 +28,12 @@ namespace TaskAPI.Controllers
 
         }
         // GET api/tasks/5
-        [HttpGet("{id}")] //brackets are used when working with params
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            // we return a JsonResult where the id matches the id from tasklist.
+            // we return a IActonResult where the id matches the id from tasklist.
             var task = TasksDataStore.Current.TasksList.FirstOrDefault(t => t.TaskId == id);
-
-            // Return not found if the task is not found.
+            // if the task is not found.
             if (task == null)
             {
                 return NotFound();
@@ -42,6 +41,29 @@ namespace TaskAPI.Controllers
             // If task is found return ok, with the task.
             return Ok(task);
         }
+
+        // POST api/tasks/create
+        [HttpPost("create")]
+        public IActionResult Post([FromBody] TaskCreationDto taskDto)
+        {
+            // We are able to access this action, now we should check if the parameters is not null.
+            if (taskDto == null)
+            {
+                return BadRequest();
+            }
+            // else successfully create
+            Task task = new Task
+            {
+                BeginDateTime = taskDto.BeginDateTime,
+                DeadlineDateTime = taskDto.DeadlineDateTime,
+                Title = taskDto.Title,
+                Requirements = taskDto.Requirements
+            };
+
+            _taskManagementRepository.CreateTask(task);
+            return Ok(200);
+        }
+
 
         // DELETE api/tasks/5
         [HttpDelete("{id}")]

@@ -41,15 +41,15 @@ namespace TaskAPI
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            //services.AddMvc();
+            services.AddMvc();
             // XML formatter
-            services.AddMvc().AddMvcOptions(o => o.OutputFormatters.Add(
-                new XmlDataContractSerializerOutputFormatter()));
+            //services.AddMvc().AddMvcOptions(o => o.OutputFormatters.Add(
+            //    new XmlDataContractSerializerOutputFormatter()));
 
             // Connecting to database
             var connection = @"Server=(localdb)\mssqllocaldb;Database=TaskManagerDB;Trusted_Connection=True;";
+            //services.AddDbContext<TaskManagementContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TaskManagerDB")));
             services.AddDbContext<TaskManagementContext>(options => options.UseSqlServer(connection));
-
 
             services.AddScoped<ITaskManagementRepository, TaskManagementRepository>();
         }

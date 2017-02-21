@@ -20,31 +20,23 @@ namespace TaskAPI.Controllers
         }
 
 
-        // GET: api/values
+        // GET: api/users
         [HttpGet]
         public IActionResult Get()
         {
-            //Returns a list with all users, that was acuired with the taskManagementRepository.
+            //Returns a list with all users, that are acuired with the taskManagementRepository.
             var allUsers = _taskManagementRepository.GetAllUsers();
             return Ok(allUsers);
         }
 
-
-        [HttpGet("getallusers")]
-        public IActionResult GetAllUser()
-        {
-            //Returns a list with all users, that was acuired with the taskManagementRepository.
-            var allUsers = _taskManagementRepository.GetAllUsers();
-            return Ok(allUsers);
-
-        }
-
-        // GET api/values/5
+        // GET api/users/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            return Ok(_taskManagementRepository.GetUser(id));
         }
+
+
 
         // POST api/values
         [HttpPost]

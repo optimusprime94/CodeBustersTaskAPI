@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskAPI.Entities;
+using TaskAPI.Models;
+using Task = TaskAPI.Entities.Task;
 
 namespace TaskAPI.Services
 {
@@ -11,7 +13,7 @@ namespace TaskAPI.Services
     public class TaskManagementRepository : ITaskManagementRepository
     {
         // We store our database context for access
-        private TaskManagementContext _context;
+        private readonly TaskManagementContext _context;
 
         public TaskManagementRepository(TaskManagementContext context)
         {
@@ -28,6 +30,12 @@ namespace TaskAPI.Services
             return _context.Users.OrderBy(u => u.UserId).ToList();
         }
 
+        User ITaskManagementRepository.GetUser(int id)
+        {
+            // returns the correct user.       
+            return _context.Users.Find(id);
+        }
+
         IEnumerable<Entities.Assignment> ITaskManagementRepository.GetAllAssignments()
         {
             // return an assignment list that is ordered after task id.
@@ -42,12 +50,19 @@ namespace TaskAPI.Services
 
         void ITaskManagementRepository.CreateAssignment(Assignment assignment)
         {
-            //Assignment assignment = new Assignment
-            //{
-            //    TaskId = taskId,
-            //    UserId = userId
-            //};
             _context.Add(assignment);
+            _context.SaveChanges();
+        }
+
+        public Task GetTask(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateTask(Task task)
+        {
+
+            _context.Add(task);
             _context.SaveChanges();
         }
     }
