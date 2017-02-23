@@ -27,5 +27,7 @@ namespace TaskAPI.Services
 
         Entities.User GetUser(int id);
         void DeleteAssignment(Assignment assignment);
+        void DeleteTask(Task task);
+        void DeleteUser(User user);
     }
 }

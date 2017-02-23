@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TaskAPI.Services;
+using TaskAPI.Entities;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -54,6 +55,8 @@ namespace TaskAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            User user = _taskManagementRepository.GetUser(id);
+            _taskManagementRepository.DeleteUser(user);
         }
     }
 }

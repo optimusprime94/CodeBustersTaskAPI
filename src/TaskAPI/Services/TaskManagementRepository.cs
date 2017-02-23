@@ -36,6 +36,14 @@ namespace TaskAPI.Services
             return _context.Users.Find(id);
         }
 
+        void ITaskManagementRepository.DeleteUser(User user)
+        {
+            // Deletes the assignment
+            _context.Remove(user);
+            _context.SaveChanges();
+        }
+
+
         IEnumerable<Entities.Assignment> ITaskManagementRepository.GetAllAssignments()
         {
             // return an assignment list that is ordered after task id.
@@ -71,5 +79,12 @@ namespace TaskAPI.Services
             _context.Add(task);
             _context.SaveChanges();
         }
+        void ITaskManagementRepository.DeleteTask(Task task)
+        {
+            // Deletes the assignment
+            _context.Remove(task);
+            _context.SaveChanges();
+        }
+
     }
 }

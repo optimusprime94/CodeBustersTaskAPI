@@ -69,6 +69,8 @@ namespace TaskAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Task task = _taskManagementRepository.GetAllTasks().FirstOrDefault(t => t.TaskId == id);
+            _taskManagementRepository.DeleteTask(task);
         }
     }
 }
