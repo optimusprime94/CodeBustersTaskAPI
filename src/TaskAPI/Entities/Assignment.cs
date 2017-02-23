@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace TaskAPI.Entities
 {
     public class Assignment

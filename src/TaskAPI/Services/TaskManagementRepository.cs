@@ -53,6 +53,12 @@ namespace TaskAPI.Services
             _context.Add(assignment);
             _context.SaveChanges();
         }
+        void ITaskManagementRepository.DeleteAssignment(Assignment assignment)
+        {
+            // Deletes the assignment
+            _context.Remove(assignment);
+            _context.SaveChanges();
+        }
 
         public Task GetTask(int id)
         {

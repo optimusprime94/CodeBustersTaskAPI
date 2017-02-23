@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TaskAPI.Models;
 using Task = TaskAPI.Entities.Task;
 using Assignment = TaskAPI.Entities.Assignment;
+using TaskAPI.Entities;
 
 namespace TaskAPI.Services
 {
@@ -22,6 +23,9 @@ namespace TaskAPI.Services
 
         // Users
         IEnumerable<Entities.User> GetAllUsers();
+
+
         Entities.User GetUser(int id);
+        void DeleteAssignment(Assignment assignment);
     }
 }

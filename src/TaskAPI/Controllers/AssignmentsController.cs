@@ -31,10 +31,15 @@ namespace TaskAPI.Controllers
 
 
         // GET api/assignments/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{taskId}/{userId}")]
+        public IActionResult Get(int taskId, int userId)
         {
-            return "value";
+            Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            if (assignment == null)
+            {
+                return NotFound();
+            }
+            return Ok(assignment);
         }
 
         // POST api/assignments/create
