@@ -39,7 +39,13 @@ namespace TaskAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(assignment);
+
+            AssignmentDto dto = new AssignmentDto
+            {
+                TaskId = assignment.TaskId,
+                UserId = assignment.UserId
+            };
+            return Ok(dto);
         }
 
         // POST api/assignments/create
@@ -78,9 +84,11 @@ namespace TaskAPI.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{taskId}/{userId}")]
+        public void Delete(int taskId, int userId)
         {
+            Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            _taskManagementRepository.DeleteAssignment(assignment);
         }
     }
 }
