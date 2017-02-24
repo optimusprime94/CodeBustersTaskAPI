@@ -30,11 +30,29 @@ namespace TaskAPI.Controllers
         }
 
 
-        // GET api/assignments/5
+        // GET api/assignments/5/4
         [HttpGet("{taskId}/{userId}")]
         public IActionResult Get(int taskId, int userId)
         {
             Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            if (assignment == null)
+            {
+                return NotFound();
+            }
+
+            AssignmentDto dto = new AssignmentDto
+            {
+                TaskId = assignment.TaskId,
+                UserId = assignment.UserId
+            };
+            return Ok(dto);
+        }
+
+        // GET api/assignments/5
+        [HttpGet("{taskId}")]
+        public IActionResult Get(int taskId)
+        {
+            Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId);
             if (assignment == null)
             {
                 return NotFound();

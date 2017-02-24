@@ -66,8 +66,6 @@ namespace TaskAPI
             {
                 new Assignment
                 {
-                  //  TaskId
-                 // UserId
                    
                 }
 
