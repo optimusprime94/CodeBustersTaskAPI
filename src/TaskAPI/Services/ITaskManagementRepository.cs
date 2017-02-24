@@ -29,5 +29,6 @@ namespace TaskAPI.Services
         void DeleteAssignment(Assignment assignment);
         void DeleteTask(Task task);
         void DeleteUser(User user);
+        Assignment GetAssignment(int taskId, int userId);
     }
 }

@@ -34,7 +34,8 @@ namespace TaskAPI.Controllers
         [HttpGet("{taskId}/{userId}")]
         public IActionResult Get(int taskId, int userId)
         {
-            Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            //Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            Assignment assignment = _taskManagementRepository.GetAssignment(taskId, userId);
             if (assignment == null)
             {
                 return NotFound();
@@ -105,7 +106,8 @@ namespace TaskAPI.Controllers
         [HttpDelete("{taskId}/{userId}")]
         public void Delete(int taskId, int userId)
         {
-            Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            //Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            Assignment assignment = _taskManagementRepository.GetAssignment(taskId, userId);
             _taskManagementRepository.DeleteAssignment(assignment);
         }
     }

@@ -55,6 +55,11 @@ namespace TaskAPI.Services
             // Return the found assignment
             return _context.Assignments.Find(assignment.TaskId, assignment.UserId);
         }
+        Entities.Assignment ITaskManagementRepository.GetAssignment(int taskId, int userId)
+        {
+            // Return the found assignment
+            return _context.Assignments.Find(taskId, userId);
+        }
 
         void ITaskManagementRepository.CreateAssignment(Assignment assignment)
         {
