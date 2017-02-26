@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace TaskAPI.Controllers
     [Route("api/[controller]")]
     public class AssignmentsController : Controller
     {
-        private ITaskManagementRepository _taskManagementRepository;
+        private readonly ITaskManagementRepository _taskManagementRepository;
 
         public AssignmentsController(ITaskManagementRepository taskManagementRepository)
         {
@@ -34,7 +35,6 @@ namespace TaskAPI.Controllers
         [HttpGet("{taskId}/{userId}")]
         public IActionResult Get(int taskId, int userId)
         {
-            //Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
             Assignment assignment = _taskManagementRepository.GetAssignment(taskId, userId);
             if (assignment == null)
             {
@@ -53,18 +53,15 @@ namespace TaskAPI.Controllers
         [HttpGet("{taskId}")]
         public IActionResult Get(int taskId)
         {
-            Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId);
-            if (assignment == null)
+            try
+            {
+                var assignment = _taskManagementRepository.GetAllAssignments().Where(a => a.TaskId == taskId);
+                return Ok(assignment);
+            }
+            catch
             {
                 return NotFound();
             }
-
-            AssignmentDto dto = new AssignmentDto
-            {
-                TaskId = assignment.TaskId,
-                UserId = assignment.UserId
-            };
-            return Ok(dto);
         }
 
         // POST api/assignments/create
@@ -78,7 +75,8 @@ namespace TaskAPI.Controllers
             }
             var task = _taskManagementRepository.GetAllTasks().FirstOrDefault(t => t.TaskId == assignmentDto.TaskId);
             var user = _taskManagementRepository.GetAllUsers().FirstOrDefault(t => t.UserId == assignmentDto.UserId);
-            if((user == null) || (task == null)) {
+            if ((user == null) || (task == null))
+            {
                 return BadRequest();
             }
             Assignment assignment = new Assignment
@@ -106,9 +104,12 @@ namespace TaskAPI.Controllers
         [HttpDelete("{taskId}/{userId}")]
         public void Delete(int taskId, int userId)
         {
-            //Assignment assignment = _taskManagementRepository.GetAllAssignments().FirstOrDefault(a => a.TaskId == taskId && a.UserId == userId);
+            //Need to check if it exist first!
             Assignment assignment = _taskManagementRepository.GetAssignment(taskId, userId);
-            _taskManagementRepository.DeleteAssignment(assignment);
+            if (assignment != null)
+            {
+                _taskManagementRepository.DeleteAssignment(assignment);
+            }
         }
     }
 }
