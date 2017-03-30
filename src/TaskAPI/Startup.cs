@@ -41,7 +41,10 @@ namespace TaskAPI
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+
+
             services.AddMvc();
+
             // XML formatter
             //services.AddMvc().AddMvcOptions(o => o.OutputFormatters.Add(
             //    new XmlDataContractSerializerOutputFormatter()));
@@ -64,11 +67,10 @@ namespace TaskAPI
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            taskManagementContext.EnsureSeedDataForContext(); //Added to add seed to database
+            //taskManagementContext.EnsureSeedDataForContext(); //Added to add seed to database
 
+             app.UseMvc();
 
-
-            app.UseMvc();
         }
     }
 }
